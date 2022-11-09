@@ -2,6 +2,27 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="sylius_notification.client" class="GuzzleHttp\Client">
+            <argument type="collection">
+                <argument id="auth" type="collection">
+                    <argument>token</argument>
+                    <argument>%sylius_notification.token%</argument>
+                </argument>
+            </argument>
+        </service>
+
+        <service id="sylius_notification.result_factory" class="Packagist\Api\Result\Factory" />
+
+        <service id="sylius_notification.packagist_client" class="Packagist\Api\Client">
+            <argument id="sylius_notification.client" />
+            <argument id="sylius_notification.result_factory" />
+            <argument>https://sylius.repo.packagist.com/sylius</argument>
+        </service>
+
         <service id="sylius_notification.packages_registry" class="Sylius\NotificationSenderPlugin\Registry\InstalledPluginsRegistry" />
+
+        <service id="sylius_notification.package_versions_provider.packagist" class="Sylius\NotificationSenderPlugin\Provider\PackageVersionProvider">
+            <argument type="service" id="sylius_notification.packagist_client" />
+        </service>
     </services>
 </container>

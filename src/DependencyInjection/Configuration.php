@@ -16,6 +16,7 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('auth_token')->defaultNull()->end()
                 ->arrayNode('plugins')
                     ->useAttributeAsKey('name')
                     ->prototype('array')
