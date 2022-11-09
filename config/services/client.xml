@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Paweł Jędrzejewski
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_notification.client" class="GuzzleHttp\Client">
+            <argument type="collection">
+                <argument id="auth" type="collection">
+                    <argument>token</argument>
+                    <argument>%sylius_notification.token%</argument>
+                </argument>
+            </argument>
+        </service>
+
+        <service id="sylius_notification.result_factory" class="Packagist\Api\Result\Factory" />
+
+        <service id="sylius_notification.packagist_client" class="Packagist\Api\Client">
+            <argument id="sylius_notification.client" />
+            <argument id="sylius_notification.result_factory" />
+            <argument>https://sylius.repo.packagist.com/sylius</argument>
+        </service>
+    </services>
+</container>

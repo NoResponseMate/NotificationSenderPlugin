@@ -1,1 +1,6 @@
-# Define your own admin routes here
+sylius_admin_notification_get_updated_plugins:
+    path: /get-updated-plugins
+    prefix: /ajax
+    defaults:
+        _controller: sylius_notification.action.get_updated_plugins
+        _format: json
