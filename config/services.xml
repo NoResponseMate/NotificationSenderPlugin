@@ -14,5 +14,10 @@
         <service id="sylius_notification.package_versions_provider.packagist" class="Sylius\NotificationSenderPlugin\Provider\PackageVersionProvider">
             <argument type="service" id="sylius_notification.packagist_client" />
         </service>
+
+        <service id="sylius_notification.updated_plugins_provider" class="Sylius\NotificationSenderPlugin\Provider\UpdatedPluginsProvider">
+            <argument type="service" id="sylius_notification.packages_registry" />
+            <argument type="service" id="sylius_notification.package_versions_provider.packagist" />
+        </service>
     </services>
 </container>

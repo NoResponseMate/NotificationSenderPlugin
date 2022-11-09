@@ -19,8 +19,7 @@
         <defaults public="true" />
 
         <service id="sylius_notification.action.get_updated_plugins" class="Sylius\NotificationSenderPlugin\Action\GetUpdatedPluginsAction">
-            <argument type="service" id="sylius_notification.packages_registry" />
-            <argument type="service" id="sylius_notification.package_versions_provider.packagist" />
+            <argument type="service" id="sylius_notification.updated_plugins_provider" />
         </service>
     </services>
 </container>
