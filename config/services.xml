@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <services>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <imports>
+        <import resource="services/*.xml" />
+    </imports>
 
+    <services>
+        <service id="sylius_notification.packages_registry" class="Sylius\NotificationSenderPlugin\Registry\InstalledPluginsRegistry" />
+
+        <service id="sylius_notification.package_versions_provider.packagist" class="Sylius\NotificationSenderPlugin\Provider\PackageVersionProvider">
+            <argument type="service" id="sylius_notification.packagist_client" />
+        </service>
+
+        <service id="sylius_notification.updated_plugins_provider" class="Sylius\NotificationSenderPlugin\Provider\UpdatedPluginsProvider">
+            <argument type="service" id="sylius_notification.packages_registry" />
+            <argument type="service" id="sylius_notification.package_versions_provider.packagist" />
+        </service>
     </services>
 </container>

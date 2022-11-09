@@ -9,13 +9,24 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @psalm-suppress UnusedVariable
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('sylius_notification_sender');
+        $treeBuilder = new TreeBuilder('sylius_notification');
         $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+                ->arrayNode('auth')
+                    ->children()
+                        ->scalarNode('packagist_url')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('token')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('plugins')
+                    ->scalarPrototype()->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

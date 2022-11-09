@@ -21,6 +21,9 @@ final class SyliusNotificationSenderExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
         $loader->load('services.xml');
+
+        $container->setParameter('sylius_notification.packagist_url', (string) ($config['auth']['packagist_url'] ?? ''));
+        $container->setParameter('sylius_notification.token', (string) ($config['auth']['token'] ?? ''));
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
