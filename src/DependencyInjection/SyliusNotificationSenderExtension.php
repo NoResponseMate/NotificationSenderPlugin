@@ -22,9 +22,8 @@ final class SyliusNotificationSenderExtension extends Extension
 
         $loader->load('services.xml');
 
-        if (isset($config['auth_token']) && '' !== $config['auth_token']) {
-            $container->setParameter('sylius_notification.token', (string) $config['auth_token']);
-        }
+        $container->setParameter('sylius_notification.packagist_url', (string) ($config['auth']['packagist_url'] ?? ''));
+        $container->setParameter('sylius_notification.token', (string) ($config['auth']['token'] ?? ''));
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface

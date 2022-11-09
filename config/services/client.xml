@@ -30,7 +30,7 @@
         <service id="sylius_notification.packagist_client" class="Packagist\Api\Client">
             <argument id="sylius_notification.client" />
             <argument id="sylius_notification.result_factory" />
-            <argument>https://sylius.repo.packagist.com/sylius</argument>
+            <argument>%sylius_notification.packagist_url%</argument>
         </service>
     </services>
 </container>

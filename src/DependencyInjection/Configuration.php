@@ -16,14 +16,14 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('auth_token')->defaultNull()->end()
-                ->arrayNode('plugins')
-                    ->useAttributeAsKey('name')
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('package')->defaultNull()->end()
-                        ->end()
+                ->arrayNode('auth')
+                    ->children()
+                        ->scalarNode('packagist_url')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('token')->isRequired()->cannotBeEmpty()->end()
                     ->end()
+                ->end()
+                ->arrayNode('plugins')
+                    ->scalarPrototype()->end()
                 ->end()
             ->end()
         ;

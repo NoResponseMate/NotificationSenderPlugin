@@ -24,15 +24,16 @@ final class PackageRegistryPass implements CompilerPassInterface
         $registryDefinition = $container->findDefinition('sylius_notification.packages_registry');
 
         $notificationConfig = $container->getExtensionConfig('sylius_notification');
+        $plugins = array_unique($notificationConfig['plugins'] ?? []);
 
-        foreach ($notificationConfig['plugins'] as ['package' => $package]) {
-            if (false === InstalledVersions::isInstalled($package, false)) {
+        foreach ($plugins as $plugin) {
+            if (false === InstalledVersions::isInstalled($plugin, false)) {
                 continue;
             }
 
-            $version = InstalledVersions::getPrettyVersion($package);
+            $version = InstalledVersions::getPrettyVersion($plugin);
 
-            $registryDefinition->addMethodCall('addVersion', [$package, $version]);
+            $registryDefinition->addMethodCall('addVersion', [$plugin, $version]);
         }
     }
 }
