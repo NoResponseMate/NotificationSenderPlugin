@@ -15,6 +15,8 @@ namespace Sylius\NotificationSenderPlugin\Registry;
 
 interface PackageVersionsRegistryInterface
 {
+    public function getPackages(): array;
+
     public function getVersion(string $package): string;
 
     public function addVersion(string $package, string $version): void;

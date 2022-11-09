@@ -17,6 +17,19 @@ use PhpSpec\ObjectBehavior;
 
 final class InstalledPluginsRegistrySpec extends ObjectBehavior
 {
+    function it_returns_all_registered_packages(): void
+    {
+        $this->addVersion('test/package1', '1.0.0');
+        $this->addVersion('package', '1.3');
+        $this->addVersion('test', '0.1');
+
+        $this->getPackages()->shouldReturn([
+            'test/package1',
+            'package',
+            'test',
+        ]);
+    }
+
     function it_throws_exception_when_getting_non_registered_package(): void
     {
         $this

@@ -18,6 +18,11 @@ final class InstalledPluginsRegistry implements PackageVersionsRegistryInterface
     /** @var string[]  */
     private array $packagesMap = [];
 
+    public function getPackages(): array
+    {
+        return array_keys($this->packagesMap);
+    }
+
     public function getVersion(string $package): string
     {
         if (!isset($this->packagesMap[$package])) {
